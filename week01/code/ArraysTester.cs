@@ -34,13 +34,29 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Validate input length to ensure it's a positive integer greater than 0
+        if (length <= 0)
+        {
+            throw new ArgumentException("Length must be a positive integer greater than 0.");
+        }
 
-        return new double[0]; // replace this return statement with your own
+        // Step 1: Initialize an array to store the multiples of the given number
+        double[] multiples = new double[length];
+
+        // Step 2: Calculate and populate the array with multiples of the given number
+        // Use a loop to iterate through each index of the multiples array
+        for (int i = 0; i < length; i++)
+        {
+            // Calculate the multiple for the current index (i + 1) starting from 1 up to length
+            // Each element in the array will be the product of 'number' and (i + 1)
+            multiples[i] = number * (i + 1);
+        }
+
+        // Step 3: Return the array of doubles containing the multiples of the given number
+        return multiples;
     }
+
+
     
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
@@ -52,10 +68,34 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Step 1: Validate the input 'amount' to ensure it's within the valid range
+        // The 'amount' should be between 1 and data.Count inclusive.
+        if (amount < 1 || amount > data.Count)
+        {
+            throw new ArgumentException("Amount must be between 1 and data.Count inclusive.");
+        }
 
+        // Step 2: Calculate the number of elements to rotate
+        // Determine the number of elements to move from the end to the beginning of the list
+        int elementsToMove = data.Count - amount;
+
+        // Step 3: Rotate the list to the right
+        // Create a temporary list to store the rotated elements
+        List<int> rotatedList = new List<int>();
+
+        // Add elements from the 'elementsToMove' index to the end of the original list
+        rotatedList.AddRange(data.GetRange(elementsToMove, amount));
+
+        // Add elements from the start of the original list to the 'elementsToMove - 1' index
+        rotatedList.AddRange(data.GetRange(0, elementsToMove));
+
+        // Step 4: Update the original 'data' list with the rotated elements
+        data.Clear(); // Clear the original list
+
+        // Add all elements from the rotated list back to the original list
+        data.AddRange(rotatedList);
+
+        // Step 5: No need to return anything as the function modifies the 'data' list directly
     }
+
 }
